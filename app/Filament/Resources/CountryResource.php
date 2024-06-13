@@ -42,8 +42,10 @@ class CountryResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('country_code'),
-                TextColumn::make('name'),
+                TextColumn::make('id')->sortable(),
+                TextColumn::make('country_code')->sortable()->searchable(),
+                TextColumn::make('name')->sortable()->searchable(),
+                TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
                 //
