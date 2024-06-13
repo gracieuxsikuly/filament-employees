@@ -31,7 +31,8 @@ class LoginForm extends Form
         $this->ensureIsNotRateLimited();
 
         if (! Auth::attempt($this->only(['email', 'password']), $this->remember)) {
-            RateLimiter::hit($this->throttleKey());
+            RateLimiter::hit($this->throttleKey(), 350); //pour demander a l'utilisateur d'attendre 350 secondes si la
+            // entrer 3 fois son mot de passe ou email incorrect.
 
             throw ValidationException::withMessages([
                 'form.email' => trans('auth.failed'),
@@ -46,7 +47,7 @@ class LoginForm extends Form
      */
     protected function ensureIsNotRateLimited(): void
     {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 3)) {
             return;
         }
 
