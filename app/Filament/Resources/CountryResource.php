@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Tabs;
+use Filament\Tables\Columns\TextColumn;
 
 class CountryResource extends Resource
 {
@@ -41,7 +42,8 @@ class CountryResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('country_code'),
+                TextColumn::make('name'),
             ])
             ->filters([
                 //
