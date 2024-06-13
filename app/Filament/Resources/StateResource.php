@@ -12,6 +12,11 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Tabs;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\Select;
+
 
 class StateResource extends Resource
 {
@@ -23,7 +28,20 @@ class StateResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Tabs::make('Tabs')
+                    ->tabs([
+                        Tabs\Tab::make('Formulaire d\'enregistrement de la province')
+                            ->schema([
+                                Select::make('country_id')
+                                    ->searchable()
+                                    ->relationship(name: 'country', titleAttribute: 'name'),
+                                // Select::make('country_id')
+                                //     ->searchable()
+                                //     ->relationship('country','name'),
+                                TextInput::make('name')
+                            ]),
+                    ])
+                    ->persistTabInQueryString()
             ]);
     }
 
