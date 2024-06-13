@@ -66,7 +66,8 @@ To start the development server, run:
 php artisan serve
 
 You can now access the application at `http://localhost:8000/admin/login`.
-
+# Author
+Gracier Kambale Sikuly
 ## Contributing
 
 If you wish to contribute to this project, please fork the repository and submit a pull request. For major changes, please open an issue first to discuss what you would like to change.
