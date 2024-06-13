@@ -34,13 +34,6 @@ class CountryResource extends Resource
                             ]),
                     ])
                     ->persistTabInQueryString()
-                // Tabs::make('Tabs')
-                // ->tabs([
-                //
-                // ])
-                // ->persistTab()
-                // ->id('order-tabs')
-
             ]);
     }
 
