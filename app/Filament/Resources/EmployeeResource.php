@@ -21,6 +21,7 @@ use Filament\Forms\Components\Textarea;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
  use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 
 class EmployeeResource extends Resource
 {
@@ -91,7 +92,8 @@ class EmployeeResource extends Resource
                  TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
-                //
+                SelectFilter::make('department_id')
+                    ->relationship('department', 'name')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
