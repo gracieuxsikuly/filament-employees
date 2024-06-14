@@ -75,16 +75,17 @@ class EmployeeResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('id')->sortable(),
                 ImageColumn::make('avatar')
                     ->label('Avatar')
                     ->width('50'),
                 TextColumn::make('first_name')->sortable()->searchable(),
                 TextColumn::make('last_name')->sortable()->searchable(),
                 TextColumn::make('department.name')->sortable()->searchable(),
-                 TextColumn::make('country.name')->sortable()->searchable(),
-                 TextColumn::make('state.name')->sortable()->searchable(),
-                 TextColumn::make('birth_date')->dateTime(),
-                 TextColumn::make('hire_date')->dateTime(),
+                 TextColumn::make('country.name'),
+                 TextColumn::make('state.name'),
+                 TextColumn::make('birth_date')->date(),
+                 TextColumn::make('hire_date')->date(),
                  TextColumn::make('address')->limit(50),
                  TextColumn::make('zipcode')->sortable(),
                  TextColumn::make('created_at')->dateTime(),
