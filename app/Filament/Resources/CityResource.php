@@ -15,6 +15,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\TextColumn;
 
 class CityResource extends Resource
 {
@@ -47,10 +48,10 @@ class CityResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->sortable(),
-                Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('state.name')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('created_at')->dateTime(),
+                TextColumn::make('id')->sortable(),
+                TextColumn::make('name')->sortable()->searchable(),
+                TextColumn::make('state.name')->sortable()->searchable(),
+                TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
                 //

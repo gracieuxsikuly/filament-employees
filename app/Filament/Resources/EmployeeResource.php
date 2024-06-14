@@ -6,12 +6,21 @@ use App\Filament\Resources\EmployeeResource\Pages;
 use App\Filament\Resources\EmployeeResource\RelationManagers;
 use App\Models\Employee;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Textarea;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+ use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 
 class EmployeeResource extends Resource
 {
@@ -23,7 +32,37 @@ class EmployeeResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Tabs::make('Tabs')
+                    ->tabs([
+                        Tabs\Tab::make('Formulaire d\'enregistrement de l\'employe')
+                            ->schema([
+                                FileUpload::make('avatar')
+                                ->getUploadedFileNameForStorageUsing(
+                                    fn (TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
+                                        ->prepend('custom-prefix-'),
+                                ),
+                                TextInput::make('first_name'),
+                                TextInput::make('last_name'),
+                                DatePicker::make('birth_date')
+                                    ->native(false),
+                                Textarea::make('address')
+                                    ->autosize()
+                                    ->minLength(2)
+                                    ->maxLength(1024),
+                                TextInput::make('zipcode')->integer(true),
+                                Select::make('country_id')
+                                    ->searchable()
+                                    ->relationship(name: 'country', titleAttribute: 'name'),
+                                Select::make('state_id')
+                                    ->searchable()
+                                    ->relationship(name: 'state', titleAttribute: 'name'),
+                                Select::make('department_id')
+                                    ->searchable()
+                                    ->relationship(name: 'department', titleAttribute: 'name'),
+
+                            ]),
+                    ])
+                    ->persistTabInQueryString()
             ]);
     }
 
@@ -31,7 +70,19 @@ class EmployeeResource extends Resource
     {
         return $table
             ->columns([
-                //
+                ImageColumn::make('avatar')
+                    ->label('Avatar')
+                    ->width('50'),
+                TextColumn::make('first_name')->sortable()->searchable(),
+                TextColumn::make('last_name')->sortable()->searchable(),
+                TextColumn::make('department.name')->sortable()->searchable(),
+                 TextColumn::make('country.name')->sortable()->searchable(),
+                 TextColumn::make('state.name')->sortable()->searchable(),
+                 TextColumn::make('birth_date')->dateTime(),
+                 TextColumn::make('hire_date')->dateTime(),
+                 TextColumn::make('address')->limit(50),
+                 TextColumn::make('zipcode')->sortable(),
+                 TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
                 //
