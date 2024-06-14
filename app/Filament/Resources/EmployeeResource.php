@@ -41,9 +41,11 @@ class EmployeeResource extends Resource
                                     fn (TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
                                         ->prepend('custom-prefix-'),
                                 ),
-                                TextInput::make('first_name'),
+                                TextInput::make('first_name')->required(),
                                 TextInput::make('last_name'),
                                 DatePicker::make('birth_date')
+                                    ->native(false),
+                                DatePicker::make('hire_date')
                                     ->native(false),
                                 Textarea::make('address')
                                     ->autosize()
@@ -52,13 +54,16 @@ class EmployeeResource extends Resource
                                 TextInput::make('zipcode')->integer(true),
                                 Select::make('country_id')
                                     ->searchable()
-                                    ->relationship(name: 'country', titleAttribute: 'name'),
+                                    ->relationship(name: 'country', titleAttribute: 'name')->required(),
                                 Select::make('state_id')
                                     ->searchable()
-                                    ->relationship(name: 'state', titleAttribute: 'name'),
+                                    ->relationship(name: 'state', titleAttribute: 'name')->required(),
+                                Select::make('city_id')
+                                    ->searchable()
+                                    ->relationship(name: 'city', titleAttribute: 'name')->required(),
                                 Select::make('department_id')
                                     ->searchable()
-                                    ->relationship(name: 'department', titleAttribute: 'name'),
+                                    ->relationship(name: 'department', titleAttribute: 'name')->required(),
 
                             ]),
                     ])
