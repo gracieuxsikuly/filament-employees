@@ -30,7 +30,7 @@ class DepartmentResource extends Resource
                     ->tabs([
                         Tabs\Tab::make('Formulaire d\'enregistrement de la province')
                             ->schema([
-                                TextInput::make('name')
+                                TextInput::make('name')->label('Designation du departement')
                             ]),
                     ])
                     ->persistTabInQueryString()

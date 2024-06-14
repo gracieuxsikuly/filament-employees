@@ -32,6 +32,7 @@ class CityResource extends Resource
                         Tabs\Tab::make('Formulaire d\'enregistrement de la province')
                             ->schema([
                                 Select::make('state_id')
+                                    ->label('Province')
                                     ->searchable()
                                     ->relationship(name: 'state', titleAttribute: 'name'),
                                 // Select::make('country_id')
