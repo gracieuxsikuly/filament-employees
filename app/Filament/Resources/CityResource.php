@@ -6,6 +6,9 @@ use App\Filament\Resources\CityResource\Pages;
 use App\Filament\Resources\CityResource\RelationManagers;
 use App\Models\City;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -23,7 +26,20 @@ class CityResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Tabs::make('Tabs')
+                    ->tabs([
+                        Tabs\Tab::make('Formulaire d\'enregistrement de la province')
+                            ->schema([
+                                Select::make('state_id')
+                                    ->searchable()
+                                    ->relationship(name: 'state', titleAttribute: 'name'),
+                                // Select::make('country_id')
+                                //     ->searchable()
+                                //     ->relationship('country','name'),
+                                TextInput::make('name')
+                            ]),
+                    ])
+                    ->persistTabInQueryString()
             ]);
     }
 
@@ -31,7 +47,10 @@ class CityResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id')->sortable(),
+                Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('state.name')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
                 //

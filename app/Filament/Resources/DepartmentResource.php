@@ -6,6 +6,8 @@ use App\Filament\Resources\DepartmentResource\Pages;
 use App\Filament\Resources\DepartmentResource\RelationManagers;
 use App\Models\Department;
 use Filament\Forms;
+use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -23,7 +25,14 @@ class DepartmentResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Tabs::make('Tabs')
+                    ->tabs([
+                        Tabs\Tab::make('Formulaire d\'enregistrement de la province')
+                            ->schema([
+                                TextInput::make('name')
+                            ]),
+                    ])
+                    ->persistTabInQueryString()
             ]);
     }
 
@@ -31,7 +40,9 @@ class DepartmentResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id')->sortable(),
+                Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
                 //
