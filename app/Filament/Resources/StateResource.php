@@ -39,7 +39,7 @@ class StateResource extends Resource
                                 // Select::make('country_id')
                                 //     ->searchable()
                                 //     ->relationship('country','name'),
-                                TextInput::make('name')
+                                TextInput::make('name')->required()->maxLength(255),
                             ]),
                     ])
                     ->persistTabInQueryString()

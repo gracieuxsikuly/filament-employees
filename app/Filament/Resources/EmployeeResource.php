@@ -45,6 +45,7 @@ class EmployeeResource extends Resource
                                 Select::make('country_id')
                                     ->label('Country')
                                     ->options(Country::all()->pluck('name', 'id')->toArray())
+                                    ->required()
                                     ->reactive()
                                     ->afterStateUpdated(fn (callable $set) => $set('state_id', null)),
                                 Select::make('state_id')
@@ -56,6 +57,7 @@ class EmployeeResource extends Resource
                                         }
                                         return $country->states->pluck('name', 'id');
                                     })
+                                    ->required()
                                     ->reactive()
                                     ->afterStateUpdated(fn (callable $set) => $set('city_id', null)),
                                 Select::make('city_id')
@@ -66,7 +68,8 @@ class EmployeeResource extends Resource
                                             return City::all()->pluck('name', 'id');
                                         }
                                         return $state->cities->pluck('name', 'id');
-                                    }),
+                                    })
+                                    ->required(),
 
                                 // ->searchable()
                                 // ->relationship(name: 'country', titleAttribute: 'name')->required(),
@@ -79,22 +82,15 @@ class EmployeeResource extends Resource
                                 Select::make('department_id')
                                     // ->searchable()
                                     ->relationship(name: 'department', titleAttribute: 'name')->required(),
-                                TextInput::make('first_name')->required(),
-                                TextInput::make('last_name'),
-                                DatePicker::make('birth_date')
-                                    ->native(false),
-                                DatePicker::make('hire_date')
-                                    ->native(false),
-                                Textarea::make('address')
-                                    ->autosize()
-                                    ->minLength(2)
-                                    ->maxLength(1024),
-                                TextInput::make('zipcode')->integer(true),
-                                FileUpload::make('avatar')
-                                    ->getUploadedFileNameForStorageUsing(
+                                TextInput::make('first_name')->required()->maxLength(255),
+                                TextInput::make('last_name')->required()->maxLength(255),
+                                DatePicker::make('birth_date')->required()->native(false),
+                                DatePicker::make('hire_date')->native(false),
+                                Textarea::make('address')->autosize()->minLength(2)->maxLength(1024),
+                                TextInput::make('zipcode')->integer(true)->maxLength(5),
+                                FileUpload::make('avatar')->getUploadedFileNameForStorageUsing(
                                         fn (TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
-                                            ->prepend('custom-prefix-'),
-                                    ),
+                                            ->prepend('custom-prefix-'),),
 
                             ]),
                     ])

@@ -35,11 +35,15 @@ class CityResource extends Resource
                                 Select::make('state_id')
                                     ->label('Province')
                                     ->searchable()
-                                    ->relationship(name: 'state', titleAttribute: 'name'),
+                                    ->relationship(name: 'state', titleAttribute: 'name')
+                                    ->required(),
                                 // Select::make('country_id')
                                 //     ->searchable()
                                 //     ->relationship('country','name'),
                                 TextInput::make('name')
+                                ->label('Nom de la ville')
+                                ->required()
+                                ->maxLength(255)
                             ]),
                     ])
                     ->persistTabInQueryString()

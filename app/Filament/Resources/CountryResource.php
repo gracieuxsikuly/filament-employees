@@ -31,8 +31,12 @@ class CountryResource extends Resource
                     ->tabs([
                         Tabs\Tab::make('Formulaire d\'enregistrement du pays')
                             ->schema([
-                                TextInput::make('country_code'),
+                                TextInput::make('country_code')
+                                ->maxLength(3)
+                                ->required(),
                                 TextInput::make('name')->label('Pays')
+                                ->required()
+                                ->maxLength(255),
                             ]),
                     ])
                     ->persistTabInQueryString()

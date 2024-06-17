@@ -34,21 +34,14 @@ class UserResource extends Resource
                     ->tabs([
                         Tabs\Tab::make('Formulaire d\'enregistrement du user')
                             ->schema([
-                                TextInput::make('name')->required()->maxlength(255)
-                                    ->label('Nom d\'utilisateur'),
-                                TextInput::make('email')
-                                ->label("Adresse mail")
-                                ->email()->required()->maxlength(255),
-                                TextInput::make('password')
-                                ->password()
-                                ->required(fn(Page $livewire): bool=>$livewire instanceof CreateRecord)
+                                TextInput::make('name')->required()->maxlength(255)->label('Nom d\'utilisateur'),
+                                TextInput::make('email')->label("Adresse mail")->email()->required()->maxlength(255),
+                                TextInput::make('password')->password()->required(fn(Page $livewire): bool=>$livewire instanceof CreateRecord)
                                 ->minlength(8)
                                 ->same('passwordConfirmation')
                                 ->dehydrated(fn($state)=>filled($state))
                                 ->dehydrateStateUsing(fn($state)=>Hash::make($state)),
-                                TextInput::make('passwordConfirmation')
-                                ->label('Confirmer le mot de passe')
-                                ->password()
+                                TextInput::make('passwordConfirmation')->label('Confirmer le mot de passe')->password()
                                 ->required(fn(Page $livewire): bool=>$livewire instanceof CreateRecord)
                                 ->minlength(8)
                                 ->dehydrated(false)
