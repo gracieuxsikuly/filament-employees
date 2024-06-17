@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\EmployeeResource\Widgets;
 
+use App\Models\Country;
 use App\Models\Employee;
 use Filament\Support\Enums\IconPosition;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
@@ -11,19 +12,22 @@ class EmployeeStatsOverview extends BaseWidget
 {
     protected function getStats(): array
     {
+        $cd=Country::where('country_code','CD')->withCount('employees')->first();
+        $us=Country::where('country_code', 'US')->withCount('employees')->first();
         return [
             Stat::make('Tout les employees', Employee::all()->count())
             ->description('Nombre total d\'employés')
             ->descriptionIcon('heroicon-m-arrow-trending-up',IconPosition::Before)
             ->color('success'),
-        Stat::make('Bounce rate', '21%')
-            ->description('7% increase')
+        Stat::make($cd->name, 'Employees: '.$cd->employees_count)
+            ->description('Nombre d\'employés en RDC')
             ->descriptionIcon('heroicon-m-arrow-trending-down')
             ->color('danger'),
-        Stat::make('Average time on page', '3:12')
-            ->description('3% increase')
+        Stat::make($us->name, 'Employees: '.$us->employees_count)
+            ->description('Nombre d\'employés aux USA')
             ->descriptionIcon('heroicon-m-arrow-trending-up')
             ->color('warning'),
         ];
     }
+
 }
