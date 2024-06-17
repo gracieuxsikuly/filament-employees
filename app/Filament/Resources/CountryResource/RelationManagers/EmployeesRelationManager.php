@@ -21,6 +21,9 @@ class EmployeesRelationManager extends RelationManager
                 Forms\Components\TextInput::make('first_name')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('last_name')
+                    ->required()
+                    ->maxLength(255),
             ]);
     }
 
@@ -30,6 +33,7 @@ class EmployeesRelationManager extends RelationManager
             ->recordTitleAttribute('first_name')
             ->columns([
                 Tables\Columns\TextColumn::make('first_name'),
+                Tables\Columns\TextColumn::make('last_name'),
             ])
             ->filters([
                 //
