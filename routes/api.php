@@ -1,6 +1,6 @@
 <?php
 
-use App\Filament\Resources\EmployeeResource;
+use App\Http\Resources\EmployeeResource;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
