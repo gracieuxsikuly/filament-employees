@@ -19,11 +19,11 @@ class EmployeeStatsOverview extends BaseWidget
             ->description('Nombre total d\'employés')
             ->descriptionIcon('heroicon-m-arrow-trending-up',IconPosition::Before)
             ->color('success'),
-        Stat::make($cd->name, 'Employees: '.$cd->employees_count)
+        Stat::make('CD Employees ', $cd? $cd->employees_count:0)
             ->description('Nombre d\'employés en RDC')
             ->descriptionIcon('heroicon-m-arrow-trending-down')
             ->color('danger'),
-        Stat::make($us->name, 'Employees: '.$us->employees_count)
+        Stat::make('US Employees', $us? $us->employees_count:0)
             ->description('Nombre d\'employés aux USA')
             ->descriptionIcon('heroicon-m-arrow-trending-up')
             ->color('warning'),
